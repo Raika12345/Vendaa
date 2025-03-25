@@ -1,157 +1,84 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+const livros = [
+    {
+        nome: "Orgulho e Preconceito",
+        imagem: "orgulho.jpg",
+        descricao: "Um clássico romance de Jane Austen sobre amor e orgulho.",
+        link: "https://www.google.com/search?q=Orgulho+e+Preconceito+livro"
+    },
+    {
+        nome: "O Pequeno Príncipe",
+        imagem: "principe_.jpg",
+        descricao: "Uma história encantadora sobre amizade e amor.",
+        link: "https://www.google.com/search?q=O+Pequeno+Príncipe+livro"
+    },
+    {
+        nome: "1984",
+        imagem:"1984.jpg",
+        descricao: "Um romance distópico de George Orwell sobre um regime totalitário.",
+        link: "https://www.google.com/search?q=1984+livro"
+    },
+    {
+        nome: "Dom Casmurro",
+        imagem: "doncas.jpg",
+        descricao: "Uma história intrigante de Machado de Assis sobre amor e ciúmes.",
+        link: "https://www.google.com/search?q=Dom+Casmurro+livro"
+    },
+    {
+        nome: "A Revolução dos Bichos",
+        imagem: "revolu.jpg",
+        descricao: "Uma alegoria política sobre poder e corrupção.",
+        link: "https://www.google.com/search?q=A+Revolução+dos+Bichos+livro"
+    },
+    {
+        nome: "O Nome da Rosa",
+        imagem: "rosa.jpg",
+        descricao: "Um romance histórico e filosófico que acompanha um monge franciscano investigando assassinatos misteriosos em um mosteiro medieval.",
+        link: "https://www.google.com/search?q=O+Nome+da+Rosa+resumo"
+    },
+    {
+        nome: "A Metamorfose",
+        imagem:"meta.jpg",
+        descricao: "A perturbadora história de Gregor Samsa, um homem que acorda transformado em um inseto e enfrenta o isolamento e o desprezo da sociedade.",
+        link: "https://www.google.com/search?q=A+Metamorfose+resumo"
+    },
+    {
+        nome: "O Morro dos Ventos Uivantes",
+        imagem: "morro.jpg",
+        descricao: "Uma trágica história de amor e vingança entre Catherine e Heathcliff, ambientada nos campos sombrios da Inglaterra rural.",
+        link: "https://www.google.com/search?q=O+Morro+dos+Ventos+Uivantes+resumo"
+    },
+    {
+        nome: "Memórias Póstumas de Brás Cubas",
+        imagem:"memo.jpg",
+        descricao: "Uma narrativa irreverente e inovadora, onde o narrador conta sua história após a morte, criticando a sociedade do século XIX.",
+        link: "https://www.google.com/search?q=Memórias+Póstumas+de+Brás+Cubas+resumo"
+    }
+];
 
-body {
-    font-family: "Poppins", sans-serif;
-    background-color: #7B1FA2;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    margin: 0;
-    padding: 0;
+function gerarResultados(filtrados) {
+    let section = document.getElementById('resultados-pesquisa');
+    let resultados = "";
+
+    for (let livro of filtrados) {
+        resultados += `
+        <div class="item-resultado">
+            <img src="${livro.imagem}" alt="${livro.nome}">
+            <div class="info">
+                <h2>${livro.nome}</h2>
+                <p>${livro.descricao}</p>
+                <a href="${livro.link}" target="_blank">Mais Informações</a>
+            </div>
+        </div>`;
+    }
+
+    section.innerHTML = resultados || "<p>Nenhum resultado encontrado</p>";
 }
 
-h1 {
-    font-size: 3.5rem;
-    text-align: center;
-    background: linear-gradient(45deg, #D8BFD8, #8A2BE2);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    letter-spacing: 3px;
-    text-transform: uppercase;
+function pesquisar() {
+    let termo = document.getElementById('campo-pesquisa').value.toLowerCase();
+    let filtrados = livros.filter(livro => livro.nome.toLowerCase().includes(termo));
+    gerarResultados(filtrados);
 }
 
-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 2rem;
-    width: 100%;
-}
-
-section input {
-    width: 40rem;
-    border: none;
-    padding: 1rem;
-    border-radius: 1.5rem;
-    margin-bottom: 1rem;
-    color: #222;
-    font-size: 1rem;
-    box-sizing: border-box;
-}
-
-section button {
-    padding: 0.7rem 1.3rem;
-    border: none;
-    border-radius: 1.5rem;
-    background-color: white;
-    color: #7B1FA2;
-    font-size: 1rem;
-    cursor: pointer;
-}
-
-.resultados-pesquisa {
-    width: 90%;
-    max-height: 60vh;
-    overflow-y: auto;
-    padding: 1rem;
-    background: white;
-    color: black;
-    border-radius: 0.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.item-resultado {
-    display: flex;
-    align-items: center;
-    background: #E1BEE7;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    width: 80%;
-    min-height: 12rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.item-resultado img {
-    width: 110px;
-    height: auto;
-    margin-right: 1rem;
-    border-radius: 0.3rem;
-}
-
-.item-resultado .info {
-    display: flex;
-    flex-direction: column;
-}
-
-.item-resultado h2 {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-}
-
-.item-resultado p {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-}
-
-.item-resultado a {
-    color: #4A148C;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-footer {
-    background-color: #4A148C;
-    color: white;
-    text-align: center;
-    padding: 1rem;
-    width: 100%;
-    position: relative;
-    bottom: 0;
-    font-size: 1rem;
-}
-
-footer .footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 19px; /* Espaço entre os elementos */
-}
-
-footer .footer-links {
-    display: flex;
-    gap: 19px;
-}
-
-footer .footer-links a {
-    color: #DDA0DD;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-footer .footer-links a:hover {
-    color: #E6E6FA;
-    text-decoration: underline;
-}
-
-footer .social-icons {
-    margin-top: 10px;
-    display: flex;
-    gap: 10px;
-}
-
-footer .social-icons a {
-    font-size: 28px;
-    color: #DDA0DD;
-    text-decoration: none;
-}
-
-footer .social-icons a:hover {
-    color: #E6E6FA;
-}
+// Inicializa com todos os livros
+gerarResultados(livros);
