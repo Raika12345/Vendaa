@@ -7,7 +7,7 @@ const livros = [
     },
     {
         nome: "O Pequeno Príncipe",
-        imagem: "principe_.jpg",
+        imagem: "principe.jpg",
         descricao: "Uma história encantadora sobre amizade e amor.",
         link: "https://www.google.com/search?q=O+Pequeno+Príncipe+livro"
     },
